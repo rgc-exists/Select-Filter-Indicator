@@ -1,3 +1,6 @@
+# 1.0.5
+- Update mod.json to support JIT-Less
+
 # 1.0.4
 * Fix a missing dependency.
 
