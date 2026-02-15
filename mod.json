@@ -1,14 +1,14 @@
 {
-	"geode": "4.4.0",
+	"geode": "5.0.0-alpha.2",
 	"gd": {
-		"win": "2.2074",
-		"android": "2.2074",
-		"mac": "2.2074",
-		"ios": "2.2074"
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081"
 	},
 	"id": "rgc_exists.select_filter_indicator",
 	"name": "Select Filter Indicator",
-	"version": "v1.0.4",
+	"version": "v1.0.5-beta.1",
 	"developer": "RGC Exists",
 	"description": "Adds an indicator for when you have an object select filter enabled in the delete tab."
 }
