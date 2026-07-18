@@ -11,6 +11,35 @@ class $modify(EditorUIHook, EditorUI) {
 		CCSprite* m_filterIndicatorObj;
 	};
 
+	bool updateFilterIndicator_ForGroupOrColor() {
+
+		CCSprite* filterIndicatorIcon = m_fields->m_filterIndicatorIcon;
+		CCSprite* filterIndicatorObj = m_fields->m_filterIndicatorObj;
+
+		int groupIDFilter = GameManager::get()->getIntGameVariable("0133");
+		int colorIDFilter = GameManager::get()->getIntGameVariable("0139");
+
+		if (groupIDFilter > 0 && colorIDFilter > 0) {
+			filterIndicatorIcon->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("deleteFilter_color_AND_group_001.png"_spr));
+			filterIndicatorIcon->setVisible(true);
+			filterIndicatorObj->setVisible(false);
+			return true;
+		} else if (groupIDFilter > 0) {
+			filterIndicatorIcon->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("deleteFilter_group_001.png"_spr));
+			filterIndicatorIcon->setVisible(true);
+			filterIndicatorObj->setVisible(false);
+			return true;
+		}
+		else if (colorIDFilter > 0) {
+			filterIndicatorIcon->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("deleteFilter_color_001.png"_spr));
+			filterIndicatorIcon->setVisible(true);
+			filterIndicatorObj->setVisible(false);
+			return true;
+		}
+
+		return false;
+	}
+
 	void updateFilterIndicator() {
 
 		CCSprite* filterIndicatorIcon = m_fields->m_filterIndicatorIcon;
@@ -46,8 +75,10 @@ class $modify(EditorUIHook, EditorUI) {
 			}
 
 			default:
-				filterIndicatorIcon->setVisible(false);
-				filterIndicatorObj->setVisible(false);
+				if (!updateFilterIndicator_ForGroupOrColor()) {
+					filterIndicatorIcon->setVisible(false);
+					filterIndicatorObj->setVisible(false);
+				}
 				break;
 		}
 	}
@@ -84,5 +115,20 @@ class $modify(EditorUIHook, EditorUI) {
 		EditorUI::onUpdateDeleteFilter(sender);
 		updateFilterIndicator();
 	}
-	
+
+	void onGroupIDFilter(cocos2d::CCObject* sender) {
+		EditorUI::onGroupIDFilter(sender);
+		updateFilterIndicator();
+	}
+
+	virtual void setIDPopupClosed(SetIDPopup* popup, int value) {
+		EditorUI::setIDPopupClosed(popup, value);
+		updateFilterIndicator();
+	}
+
+	void onResetSpecialFilter(cocos2d::CCObject* sender) {
+		EditorUI::onResetSpecialFilter(sender);
+		updateFilterIndicator();
+	}
+
 };

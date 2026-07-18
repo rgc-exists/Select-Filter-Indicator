@@ -1,3 +1,7 @@
+# 1.0.5
+* Add indicators for group ID filters and color ID filters
+* Update to 2.208
+
 # 1.0.4
 * Fix a missing dependency.
 
